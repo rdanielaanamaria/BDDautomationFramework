@@ -11,20 +11,19 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import automation.utils.Constants;
 import automation.utils.Utils;
 
+
 public class HomePage {
-//    we have the constructor
     private WebDriver driver;
 
-    public HomePage(){
+    public HomePage() {
         driver = DriverSingleton.getDriver();
         PageFactory.initElements(driver, this);
     }
 
-//    define our elements
     @FindBy(css = "#homefeatured > li.ajax_block_product.col-xs-12.col-sm-4.col-md-3.first-in-line.first-item-of-tablet-line.first-item-of-mobile-line > div > div.right-block > div.button-container > a.button.ajax_add_to_cart_button.btn.btn-default")
     private WebElement addToCartFirst;
 
-    @FindBy(css = "#homefeatured > li:nth-child(2) > div > div.right-block > div.button-container > a.button.ajax_add_to_cart_button.btn.btn-default")
+    @FindBy(css = "#homefeatured > li.ajax_block_product.col-xs-12.col-sm-4.col-md-3.last-item-of-mobile-line.hovered > div > div.right-block > div.button-container > a.button.ajax_add_to_cart_button.btn.btn-default")
     private WebElement addToCartSecond;
 
     @FindBy(css = "#header > div:nth-child(3) > div > div > div:nth-child(3) > div > a")
@@ -33,14 +32,14 @@ public class HomePage {
     @FindBy(css = "#layer_cart > div.clearfix > div.layer_cart_cart.col-xs-12.col-md-6 > div.button-container > a")
     private WebElement proceedToCheckoutButton;
 
-    @FindBy(css = "#layer_cart > div.clearfix > div.layer_cart_cart.col-xs-12.col-md-6 > div.button-container > span")
+    @FindBy(css = "#layer_cart > div.clearfix > div.layer_cart_cart.col-xs-12.col-md-6 > div.button-container > span > span")
     private WebElement continueShoppingButton;
 
-    @FindBy(css ="#homefeatured > li.ajax_block_product.col-xs-12.col-sm-4.col-md-3.first-in-line.first-item-of-tablet-line.first-item-of-mobile-line" )
-    private  WebElement firstElement;
+    @FindBy(css = "#homefeatured > li.ajax_block_product.col-xs-12.col-sm-4.col-md-3.first-in-line.first-item-of-tablet-line.first-item-of-mobile-line")
+    private WebElement firstElement;
 
-    @FindBy(css ="#homefeatured > li:nth-child(2)" )
-    private  WebElement secondElement;
+    @FindBy(css = "#homefeatured > li:nth-child(2)")
+    private WebElement secondElement;
 
     @FindBy(css = "#header > div.nav > div > div > nav > div.header_user_info > a")
     private WebElement signInButton;
@@ -57,33 +56,46 @@ public class HomePage {
     @FindBy(css = "#center_column > ul > li > div > div.left-block > div > a.product_img_link > img")
     private WebElement searchResults;
 
+    public Boolean searchElement(String searchStr){
+        searchBar.sendKeys(searchStr);
+        searchButton.click();
+        try {
+            if(searchResults.isEnabled())
+                return true;
+        } catch (Exception e) {
+            return false;
+        }
 
+        return false;
+    }
 
-    //    define the actions/methods that we can do
-    public void clickSignIn(){
+    public void clickSignIn() {
         WebDriverWait wait = new WebDriverWait(driver, Constants.TIMEOUT);
         wait.until(ExpectedConditions.elementToBeClickable(signInButton));
         signInButton.click();
     }
 
-    public void addFirstElementToCart(){
+    public String getUserName() {
+        return username.getText();
+    }
+
+    public void addFirstElementToCart() {
         Actions hover = new Actions(driver);
         hover.moveToElement(firstElement).build().perform();
         addToCartFirst.click();
         WebDriverWait wait = new WebDriverWait(driver, Constants.TIMEOUT);
         wait.until(ExpectedConditions.elementToBeClickable(continueShoppingButton));
         continueShoppingButton.click();
-
-//        confirm the validation that the cart contains one element
         if (cart.getText().contains(Constants.CART_QUANTITY))
             System.out.println("Cart has been updated");
         else {
             System.out.println("Cart has not been updated");
             Utils.takeScreenshot();
         }
+
     }
 
-    public void addSecondElementToCart(){
+    public void addSecondElementToCart() {
         Actions hover = new Actions(driver);
         hover.moveToElement(secondElement).build().perform();
         addToCartSecond.click();
@@ -91,22 +103,6 @@ public class HomePage {
         wait.until(ExpectedConditions.elementToBeClickable(proceedToCheckoutButton));
         proceedToCheckoutButton.click();
     }
-    public String getUsername(){
-        return username.getText();
-    }
-
-    public Boolean seachElement(String searchStr) {
-        searchBar.sendKeys(searchStr);
-        searchButton.click();
-        try {
-            if (searchResults.isEnabled())
-                return true;
-        } catch (Exception e) {
-            return false;
-        }
-        return false;
-    }
-
-
 }
+
 

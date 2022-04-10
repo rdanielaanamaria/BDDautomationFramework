@@ -14,7 +14,7 @@ public class SignInPage {
         this.driver = DriverSingleton.getDriver();
         PageFactory.initElements(driver, this);
     }
-//    Locators that we need
+
     @FindBy(id = "email")
     private WebElement emailField;
 
@@ -30,8 +30,6 @@ public class SignInPage {
     @FindBy(id = "SubmitCreate")
     private WebElement signUpButton;
 
-//   Define the Actions: log in and sign up
-
     public void logIn(String email, String passwd){
         emailField.sendKeys(email);
         password.sendKeys(Utils.decode64(passwd));
@@ -40,6 +38,7 @@ public class SignInPage {
 
     public void signUp(String email){
         emailSignUpField.sendKeys(email);
-        signInButton.click();
+        signUpButton.click();
     }
+
 }

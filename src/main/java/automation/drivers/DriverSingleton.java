@@ -12,6 +12,7 @@ public class DriverSingleton {
     private DriverSingleton(String driver){
         instantiate(driver);
     }
+
     public WebDriver instantiate(String strategy){
         DriverStrategy driverStrategy = DriverStrategyImplementer.chooseStrategy(strategy);
         driver = driverStrategy.setStrategy();
@@ -20,7 +21,7 @@ public class DriverSingleton {
 
         return driver;
     }
-//this is a way to make it memory efficient
+
     public static DriverSingleton getInstance(String driver){
         if(instance == null){
             instance = new DriverSingleton(driver);
@@ -33,7 +34,8 @@ public class DriverSingleton {
         instance = null;
         driver.quit();
     }
-    public static WebDriver getDriver(){
+
+    public static WebDriver getDriver() {
         return driver;
     }
 }

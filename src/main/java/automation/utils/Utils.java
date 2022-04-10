@@ -5,17 +5,17 @@ import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.springframework.util.FileCopyUtils;
 
-
 import java.io.File;
 import java.io.IOException;
 import java.util.Base64;
 import java.util.Random;
 
 public class Utils {
-    public static String decode64 (String encodeStr){
+    public static String decode64(String encodedStr){
         Base64.Decoder decoder = Base64.getDecoder();
-        return new String(decoder.decode(encodeStr.getBytes()));
+        return new String(decoder.decode(encodedStr.getBytes()));
     }
+
     public static boolean takeScreenshot(){
         File file = ((TakesScreenshot) DriverSingleton.getDriver()).getScreenshotAs(OutputType.FILE);
         try {
@@ -31,7 +31,7 @@ public class Utils {
         StringBuilder sb = new StringBuilder();
         int i = 0;
         Random random = new Random();
-        while ( i < length){
+        while(i < length){
             sb.append(seedChars.charAt(random.nextInt(seedChars.length())));
             i++;
         }
