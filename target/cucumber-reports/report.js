@@ -52,4 +52,62 @@ formatter.match({
 formatter.result({
   "status": "passed"
 });
+formatter.scenario({
+  "name": "Testing the purchase of two items",
+  "description": "",
+  "keyword": "Scenario"
+});
+formatter.before({
+  "status": "passed"
+});
+formatter.step({
+  "name": "I go to the Website",
+  "keyword": "Given "
+});
+formatter.match({
+  "location": "StepDefinition.i_go_to_the_Website()"
+});
+formatter.result({
+  "status": "passed"
+});
+formatter.step({
+  "name": "I add two elements to the cart",
+  "keyword": "When "
+});
+formatter.match({
+  "location": "StepDefinition.i_add_two_elements_to_the_cart()"
+});
+formatter.result({
+  "status": "passed"
+});
+formatter.step({
+  "name": "I proceed to checkout",
+  "keyword": "And "
+});
+formatter.match({
+  "location": "StepDefinition.i_proceed_to_checkout()"
+});
+formatter.result({
+  "status": "passed"
+});
+formatter.step({
+  "name": "I confirm address, shipping, payment and final order",
+  "keyword": "And "
+});
+formatter.match({
+  "location": "StepDefinition.i_confirm_address_shipping_payment_and_final_order()"
+});
+formatter.result({
+  "status": "passed"
+});
+formatter.step({
+  "name": "The elements are bought",
+  "keyword": "Then "
+});
+formatter.match({
+  "location": "StepDefinition.the_elements_are_bought()"
+});
+formatter.result({
+  "status": "passed"
+});
 });

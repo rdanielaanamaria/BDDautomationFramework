@@ -15,6 +15,7 @@ import org.openqa.selenium.WebDriver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 
+import static junit.framework.Assert.assertTrue;
 import static junit.framework.TestCase.assertEquals;
 
 @ContextConfiguration(classes = AutomationFrameworkConfiguration.class)
@@ -51,14 +52,35 @@ public class StepDefinition {
         homePage.clickSignIn();
     }
 
+    @When("^I add two elements to the cart")
+    public void i_add_two_elements_to_the_cart(){
+        homePage.addFirstElementToCart();
+        homePage.addSecondElementToCart();
+    }
+
     @And("^I specify my credentials and click Login")
     public void i_specify_my_credentials_and_click_Login(){
         signInPage.logIn(configurationProperties.getEmail(), configurationProperties.getPassword());
+    }
+    @And("^I proceed to checkout")
+    public void i_proceed_to_checkout(){
+        checkoutPage.goToCheckout();
+    }
+    @And("^I confirm address, shipping, payment and final order")
+    public void i_confirm_address_shipping_payment_and_final_order(){
+        checkoutPage.confirmAddress();
+        checkoutPage.confirmShipping();
+        checkoutPage.payByBankWire();
+        checkoutPage.confirmFinalOrder();
     }
 
     @Then("^I can log into the website")
     public void i_can_log_into_the_website(){
         assertEquals(configurationProperties.getUsername(), homePage.getUsername());
+    }
+    @Then("^The elements are bought")
+    public void the_elements_are_bought(){
+        assertTrue(checkoutPage.checkFinalStatus());
     }
 
 }
