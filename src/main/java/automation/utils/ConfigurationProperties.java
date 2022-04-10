@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 public class ConfigurationProperties {
 
     @Value("${browser}")
-    private static String browser;
+    private String browser;
 
     @Value("${email}")
     private String email;
@@ -18,7 +18,7 @@ public class ConfigurationProperties {
     @Value("${password}")
     private String password;
 
-    @Value("${username}")
+    @Value("${user}")
     private  String username;
 
     public String getBrowser() {
